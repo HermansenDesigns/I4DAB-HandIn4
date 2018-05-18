@@ -11,12 +11,12 @@
 
 ## 1.1. Participants
 
-| Students              | AUID            | Student number |
-| --------------------- | --------------- | -------------- |
-| Jakob                 | **TBA**         | **TBA**        |
-| Karsten               | **TBA**         | **TBA**        |
-| Kasper Juul Hermansen | au557919        | 201607110      |
-| Martin                | **TBA**         | **TBA**        |
+| Students                | AUID       | Student number   |
+| ----------------------- | ---------- | ---------------- |
+| Jakob                   | **TBA**    | **TBA**          |
+| Karsten                 | **TBA**    | **TBA**          |
+| Kasper Juul Hermansen   | au557919   | 201607110        |
+| Martin                  | **TBA**    | **TBA**          |
 
 </div>
 
