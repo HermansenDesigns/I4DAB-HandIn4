@@ -14,11 +14,12 @@ namespace I4DABH4.Controllers
     [Route("api/Prosumers")]
     public class ProsumersController : Controller
     {
-        private readonly ProsumerRepository _prosumerRepository;
+        private IProsumerRepository _prosumerRepository;
 
-        public ProsumersController(ProsumerRepository repository)
+        public ProsumersController(IProsumerRepository repository)
         {
             _prosumerRepository = repository; 
+            
         }
 
         // GET: api/Prosumers
@@ -91,9 +92,9 @@ namespace I4DABH4.Controllers
             }
 
             _prosumerRepository.Insert(prosumer);
-            //await _context.SaveChangesAsync();
+            _prosumerRepository.SaveChanges();
 
-            return CreatedAtAction("GetProsumer", new { id = prosumer.Address }, prosumer);
+            return CreatedAtAction("GetProsumer", new { id = prosumer.ProsumerId }, prosumer);
         }
 
         // DELETE: api/Prosumers/5
