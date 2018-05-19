@@ -39,6 +39,10 @@ namespace I4DABH4.Repos
             {
                 throw new ArgumentNullException("entity");
             }
+
+            var t = context.Set<T>().SingleOrDefault(o => o == entity);
+            if (t != null)
+                context.Entry(t).CurrentValues.SetValues(t);
             context.SaveChanges();
         }
         public void Delete(T entity)

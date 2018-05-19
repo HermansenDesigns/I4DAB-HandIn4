@@ -31,7 +31,8 @@ namespace I4DABH4
             {
                 Title = "SmartGrid API", Version = "V1.0"
             }); });
-            services.AddScoped<IProsumerRepository>(); 
+
+            services.AddScoped<IProsumerRepository, ProsumerRepository>(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

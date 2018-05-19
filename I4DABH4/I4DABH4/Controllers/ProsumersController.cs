@@ -50,7 +50,7 @@ namespace I4DABH4.Controllers
 
         // PUT: api/Prosumers/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProsumer([FromRoute] long id, [FromBody] Prosumer prosumer)
+        public IActionResult PutProsumer([FromRoute] long id, [FromBody] Prosumer prosumer)
         {
             if (!ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace I4DABH4.Controllers
             _prosumerRepository.Update(prosumer);
             try
             {
-                
+
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -84,7 +84,7 @@ namespace I4DABH4.Controllers
 
         // POST: api/Prosumers
         [HttpPost]
-        public async Task<IActionResult> PostProsumer([FromBody] Prosumer prosumer)
+        public IActionResult PostProsumer([FromBody] Prosumer prosumer)
         {
             if (!ModelState.IsValid)
             {
@@ -99,7 +99,7 @@ namespace I4DABH4.Controllers
 
         // DELETE: api/Prosumers/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProsumer([FromRoute] long id)
+        public IActionResult DeleteProsumer([FromRoute] long id)
         {
             if (!ModelState.IsValid)
             {
