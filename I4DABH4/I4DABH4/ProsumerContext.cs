@@ -18,7 +18,7 @@ namespace I4DABH4.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Prosumer>(entity => { entity.HasKey(d => d.Address);});
+            modelBuilder.Entity<Prosumer>(entity => { entity.HasKey(d => d.ProsumerId);});
         }
     }
 }

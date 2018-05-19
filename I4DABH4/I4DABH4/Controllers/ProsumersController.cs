@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using I4DABH4.Models;
+using I4DABH4.Repos;
 
 namespace I4DABH4.Controllers
 {
@@ -13,30 +14,30 @@ namespace I4DABH4.Controllers
     [Route("api/Prosumers")]
     public class ProsumersController : Controller
     {
-        private readonly ProsumerContext _context;
+        private readonly ProsumerRepository _prosumerRepository;
 
-        public ProsumersController(ProsumerContext context)
+        public ProsumersController(ProsumerRepository repository)
         {
-            _context = context;
+            _prosumerRepository = repository; 
         }
 
         // GET: api/Prosumers
         [HttpGet]
         public IEnumerable<Prosumer> GetProsumers()
         {
-            return _context.Prosumers;
+            return _prosumerRepository.GetAll();
         }
 
         // GET: api/Prosumers/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetProsumer([FromRoute] string id)
+        public IActionResult GetProsumer([FromRoute] long id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var prosumer = await _context.Prosumers.SingleOrDefaultAsync(m => m.Address == id);
+            var prosumer = _prosumerRepository.Get(id);
 
             if (prosumer == null)
             {
@@ -48,23 +49,22 @@ namespace I4DABH4.Controllers
 
         // PUT: api/Prosumers/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProsumer([FromRoute] string id, [FromBody] Prosumer prosumer)
+        public async Task<IActionResult> PutProsumer([FromRoute] long id, [FromBody] Prosumer prosumer)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != prosumer.Address)
+            if (id != prosumer.ProsumerId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(prosumer).State = EntityState.Modified;
-
+            _prosumerRepository.Update(prosumer);
             try
             {
-                await _context.SaveChangesAsync();
+                
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -90,36 +90,36 @@ namespace I4DABH4.Controllers
                 return BadRequest(ModelState);
             }
 
-            _context.Prosumers.Add(prosumer);
-            await _context.SaveChangesAsync();
+            _prosumerRepository.Insert(prosumer);
+            //await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetProsumer", new { id = prosumer.Address }, prosumer);
         }
 
         // DELETE: api/Prosumers/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProsumer([FromRoute] string id)
+        public async Task<IActionResult> DeleteProsumer([FromRoute] long id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var prosumer = await _context.Prosumers.SingleOrDefaultAsync(m => m.Address == id);
+            var prosumer = _prosumerRepository.Get(id);
             if (prosumer == null)
             {
                 return NotFound();
             }
 
-            _context.Prosumers.Remove(prosumer);
-            await _context.SaveChangesAsync();
+            _prosumerRepository.Delete(prosumer);
+            //await _context.SaveChangesAsync();
 
             return Ok(prosumer);
         }
 
-        private bool ProsumerExists(string id)
+        private bool ProsumerExists(long id)
         {
-            return _context.Prosumers.Any(e => e.Address == id);
+            return _prosumerRepository.Get(id) != null; 
         }
     }
 }
