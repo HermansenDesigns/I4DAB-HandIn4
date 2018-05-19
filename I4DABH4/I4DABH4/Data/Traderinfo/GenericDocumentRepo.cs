@@ -11,12 +11,12 @@ using Newtonsoft.Json;
 
 namespace I4DABH4.Data.Traderinfo
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class GenericDocumentRepo<TEntity> : IGenericDocumentRepo<TEntity> where TEntity : class
     {
         private readonly DocumentClient _client;
         private readonly Uri _collectionUri;
         private readonly PropertyInfo _modelId;
-        public Repository(DocumentClient client, Uri collectionUri)
+        public GenericDocumentRepo(DocumentClient client, Uri collectionUri)
         {
             try
             {
@@ -32,27 +32,32 @@ namespace I4DABH4.Data.Traderinfo
 
         }
 
-        public virtual TEntity Get(string id)
+        public virtual IEnumerable<TEntity> Get(string id)
         {
-            return _client.CreateDocumentQuery<TEntity>(
+            return _client.CreateDocumentQuery<IEnumerable<TEntity>>(
                 _collectionUri,
-                "Select * from " + typeof(TEntity).Name + " Where " + typeof(TEntity).Name + ".id='" + id + "'").AsEnumerable().FirstOrDefault();
+                "Select * from " + typeof(TEntity).Name + " Where " + typeof(TEntity).Name + ".id='" + id + "'").AsEnumerable()?.FirstOrDefault();
         }
-        private Document GetDocument(TEntity entity)
+        public virtual List<TEntity> Get(TEntity entity)
         {
-            return _client.CreateDocumentQuery(_collectionUri).Where(predicate: c => c.Id == (string)_modelId.GetValue(entity)).AsEnumerable().FirstOrDefault();
+            return GetDocument(entity) as List<TEntity>;
         }
 
-        public virtual IEnumerable<TEntity> GetAll()
+        private Document GetDocument(TEntity entity)
         {
-            return _client.CreateDocumentQuery<TEntity>(
+            return _client.CreateDocumentQuery(_collectionUri).Where(predicate: c => c.Id == (string)_modelId.GetValue(entity)).AsEnumerable()?.FirstOrDefault();
+        }
+
+        public virtual IEnumerable<List<TEntity>> GetAll()
+        {
+            return _client.CreateDocumentQuery<List<TEntity>>(
                 _collectionUri,
                 "Select * from " + typeof(TEntity).Name);
         }
 
-        public virtual IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
+        public virtual IEnumerable<List<TEntity>> Find(Expression<Func<List<TEntity>, bool>> predicate)
         {
-            return _client.CreateDocumentQuery<TEntity>(_collectionUri)
+            return _client.CreateDocumentQuery<List<TEntity>>(_collectionUri)
                         .Where(predicate).AsEnumerable();
 
         }
@@ -62,7 +67,7 @@ namespace I4DABH4.Data.Traderinfo
             {
                 var item = GetDocument(entity);
                 if (item == null)
-                    _client.CreateDocumentAsync(_collectionUri, entity).Wait();
+                    _client.CreateDocumentAsync(_collectionUri, new List<TEntity>(){entity}).Wait();
             }
             catch (DocumentClientException e)
             {
@@ -118,6 +123,23 @@ namespace I4DABH4.Data.Traderinfo
             }
         }
 
+        public void Update(IEnumerable<TEntity> entity)
+        {
+            try
+            {
+                var doc = GetDocument(entity.FirstOrDefault());
+                var response = _client.ReplaceDocumentAsync(doc.SelfLink, entity).Result;
+            }
+            catch (DocumentClientException e)
+            {
+                Console.WriteLine(e);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }
+
         private PropertyInfo TryToFindId()
         {
             var type = typeof(TEntity);
@@ -127,11 +149,11 @@ namespace I4DABH4.Data.Traderinfo
                 var jsonId = key.GetCustomAttributes(typeof(JsonPropertyAttribute), true);
                 if (jsonId.Length < 1)
                     return false;
-                var propname = ((JsonPropertyAttribute)jsonId.FirstOrDefault()).PropertyName;
+                var propname = ((JsonPropertyAttribute)jsonId.FirstOrDefault())?.PropertyName;
                 return propname == "id";
             });
             if (id == null)
-                throw new ArgumentNullException("No id");
+                throw new ArgumentNullException("id");
             return id;
         }
     }
