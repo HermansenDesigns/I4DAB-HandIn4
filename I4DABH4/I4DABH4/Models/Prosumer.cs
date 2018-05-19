@@ -10,7 +10,7 @@ namespace I4DABH4.Models
     public class Prosumer
     {
         [Key]
-        public long ProcumerId { get; set; }
+        public long ProsumerId { get; set; }
         public string Address { get; set; }
         public string Type { get; set; }
 
