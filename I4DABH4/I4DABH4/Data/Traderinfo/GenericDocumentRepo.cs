@@ -31,7 +31,6 @@ namespace I4DABH4.Data.Traderinfo
             _collectionUri = collectionUri;
 
         }
-
         public virtual TEntity Get(string id)
         {
             return _client.CreateDocumentQuery<TEntity>(
