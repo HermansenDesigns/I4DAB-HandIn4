@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Newtonsoft.Json;
+using Remotion.Linq.Clauses;
 
 
 namespace I4DABH4.Data.Traderinfo
@@ -64,8 +65,17 @@ namespace I4DABH4.Data.Traderinfo
             return _client.CreateDocumentQuery<TEntity>(_collectionUri)
                 .Where(predicate).LastOrDefault();
         }
-
-
+        public virtual IQueryable<TEntity> ExposeSql(string sql)
+        {
+            return _client.CreateDocumentQuery<TEntity>(
+                _collectionUri,
+               sql);
+        }
+        public virtual IQueryable<TEntity> Query()
+        {
+            return _client.CreateDocumentQuery<TEntity>(
+                _collectionUri);
+        }
         public virtual IEnumerable<TEntity> StartsWith(string stringLikeWildcard)
         {
             return _client.CreateDocumentQuery<TEntity>(
