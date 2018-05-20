@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using I4DABH4.Models;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Azure.Documents.Client;
+
 
 namespace I4DABH4.Data.Traderinfo
 {
@@ -15,20 +17,22 @@ namespace I4DABH4.Data.Traderinfo
 
         public IEnumerable<ProsumerTradeStat> GetAllById(long prosumerId)
         {
-            var relevantDocs = base.Find(stat => stat.TradeStats.Exists(item => item.ProsumerId == prosumerId));
-            var listofstats = new List<ProsumerTradeStat>();
-            foreach (var doc in relevantDocs)
+            var result = base.Query().Select(c => c.TradeStats)?.AsEnumerable();
+            var aggregate = new List<ProsumerTradeStat>();
+
+            foreach (var stat in result)
             {
-                listofstats.AddRange(doc.TradeStats.Where(item => item.ProsumerId == prosumerId));
+                aggregate.AddRange(stat);
             }
 
-            return listofstats;
+            return aggregate;
+
         }
         public ProsumerTradeStat GetLatestById(long prosumerId)
         {
-            var relevantDoc = base.FindLatestOrDefault(stat => stat.TradeStats.Exists(item => item.ProsumerId == prosumerId));
+            var query = base.Query().Select(c => c.TradeStats)?.AsEnumerable()?.LastOrDefault();
 
-            return relevantDoc.TradeStats.FindLast(item => item.ProsumerId == prosumerId);
+            return query.FindLast(item => item.ProsumerId == prosumerId);
         }
 
 
@@ -40,7 +44,7 @@ namespace I4DABH4.Data.Traderinfo
             if (last == null)
                 netImpact = (prosumerInfo.Producing - prosumerInfo.Consuming);
             else
-                netImpact = (last.Producing - prosumerInfo.Producing) - (last.Consuming - prosumerInfo.Consuming);
+                netImpact = (prosumerInfo.Producing - last.Producing) + (last.Consuming - prosumerInfo.Consuming);
 
             var doc = base.Get(proinfos.Id);
             if (doc == null)
