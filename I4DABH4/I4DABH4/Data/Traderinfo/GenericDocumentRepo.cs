@@ -58,8 +58,21 @@ namespace I4DABH4.Data.Traderinfo
         {
             return _client.CreateDocumentQuery<TEntity>(_collectionUri)
                         .Where(predicate).AsEnumerable();
-
         }
+        public virtual TEntity FindLatestOrDefault(Expression<Func<TEntity, bool>> predicate)
+        {
+            return _client.CreateDocumentQuery<TEntity>(_collectionUri)
+                .Where(predicate).LastOrDefault();
+        }
+
+
+        public virtual IEnumerable<TEntity> StartsWith(string stringLikeWildcard)
+        {
+            return _client.CreateDocumentQuery<TEntity>(
+                _collectionUri,
+                "Select * from " + typeof(TEntity).Name + " Where STARTSWITH(" + typeof(TEntity).Name + ".id,\"" + stringLikeWildcard + "\")").AsEnumerable();
+        }
+
         public virtual void Add(TEntity entity)
         {
             try

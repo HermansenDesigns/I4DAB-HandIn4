@@ -12,7 +12,8 @@ namespace I4DABH4.Data.Traderinfo
         TEntity Get(TEntity entity);
         IEnumerable<TEntity> GetAll();
         IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
-
+        TEntity FindLatestOrDefault(Expression<Func<TEntity, bool>> predicate);
+        IEnumerable<TEntity> StartsWith(string stringLikeWildcard);
         void Add(TEntity entity);
         void AddRange(IEnumerable<TEntity> entities);
 
