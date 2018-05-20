@@ -350,6 +350,8 @@ There are two important things to take note of: Swagger is generated and is prov
 
 # 12. Discussion
 
-In this assignment we've explored polyglot persistance, and the utility it can provide when having to split persistence to more than one persistence option. It has given insight into how effecient it is to use Unit of Work pattern and Repository patterns to give access to 
+In this assignment we've explored polyglot persistance, and the utility it can provide when having to split persistence to more than one persistence option. It has given insight into how effecient it is to use Unit of Work pattern and Repository patterns to give access to the different types of context, but still using them the same way. The development has given insight into how and when to use a noSQL database and when to use a relational. We've chosen to implement two noSQL Cosmos dbs and one Relational SQL db. Overall the understanding regaring having three different context has provided a way to seamlessly integrate different functionality, that can easily be modelled via. DDD, even if they have very different areas of responsibility.
 
 # 13. Conclusion
+
+We succeeded in creating an application Smart Mini Grid, which could handle lots of different prosumers, and their individual transactions. We then proceeded to able to pull the records to watch the final calculations and what the individual prosumer either owned or should be paid. All of this was handled with a clever netto in and out system with the Mini grid, where each prosumers payment went to and from the grid. All in all it succeded using polyglot persistence to use multiple databases to handle a fairly complex domain model.
