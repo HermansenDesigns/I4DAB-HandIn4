@@ -16,12 +16,12 @@
 - [ ] Update participants
 
 
-| Students                | AUID       | Student number   |
-| ----------------------- | ---------- | ---------------- |
-| Jakob                   | **TBA**    | **TBA**          |
-| Karsten                 | **TBA**    | **TBA**          |
-| Kasper Juul Hermansen   | au557919   | 201607110        |
-| Martin                  | **TBA**    | **TBA**          |
+| Students              | AUID     | Student number |
+| --------------------- | -------- | -------------- |
+| Jakob                 | **TBA**  | **TBA**        |
+| Karsten               | **TBA**  | **TBA**        |
+| Kasper Juul Hermansen | au557919 | 201607110      |
+| Martin                | **TBA**  | **TBA**        |
 
 </div>
 
@@ -39,15 +39,16 @@
 - [4. What is Mini Smart Grid?](#4-what-is-mini-smart-grid)
     - [4.1. What is our assignment](#41-what-is-our-assignment)
 - [5. User stories](#5-user-stories)
-- [6. Domain model](#6-domain-model)
-- [7. Aggregate diagram](#7-aggregate-diagram)
-    - [7.1. Object diagram](#71-object-diagram)
-    - [7.2. The databases](#72-the-databases)
-        - [7.2.1. Smart Grid Info](#721-smart-grid-info)
-        - [7.2.2. Prosumer Info](#722-prosumer-info)
-            - [7.2.2.1. Entity-Relation Diagram](#7221-entity-relation-diagram)
-            - [7.2.2.2. DS-Diagram](#7222-ds-diagram)
-        - [7.2.3. Trader Info](#723-trader-info)
+- [6. Domain analysis](#6-domain-analysis)
+    - [6.1. Domain model](#61-domain-model)
+    - [6.2. Aggregate diagram](#62-aggregate-diagram)
+    - [6.3. Object diagram](#63-object-diagram)
+- [7. The databases](#7-the-databases)
+    - [7.1. Smart Grid Info](#71-smart-grid-info)
+    - [7.2. Prosumer Info](#72-prosumer-info)
+        - [7.2.1. Entity-Relation Diagram](#721-entity-relation-diagram)
+        - [7.2.2. DS-Diagram](#722-ds-diagram)
+    - [7.3. Trader Info](#73-trader-info)
 - [8. Overview of Mini Smart Grid API](#8-overview-of-mini-smart-grid-api)
     - [8.1. api/Prosumers](#81-api-prosumers)
     - [8.2. api/TradeInfo](#82-api-tradeinfo)
@@ -93,41 +94,43 @@ User stories provides an overview over the funktionality an application required
 >5. As a prosumer I should be able to calculate and pay the exact amount of bitcoins to the Mini Smart Grid
 >6. As a Mini Smart Grid I should be able to calculate the netto of all transactions in a timeframe.
 
-# 6. Domain model
+# 6. Domain analysis
+
+## 6.1. Domain model
 
 - [ ] Add Domainmodel diagram
 
-# 7. Aggregate diagram
+## 6.2. Aggregate diagram
 
 - [ ] Add Aggregate diagram
 
-## 7.1. Object diagram
+## 6.3. Object diagram
 
 - [ ] Add Object diagram
 
-## 7.2. The databases
+# 7. The databases
 
 > Insert Picture of all three databases in polyglot persistance.
 
 The solution contains three databases, which are specified below. This application uses Polyglot persistense, meaning that the domain model is fulfilled with a number of databases, each chosen for their strengths in the specific situation.
 
-### 7.2.1. Smart Grid Info
+## 7.1. Smart Grid Info
 
 Smart Grid Info is a noSQL database and more specifically a Cosmos SQL API database. The database contains documents, and every document accounts for a single Smart Mini Grid system. where it contains an ID for the Smart Mini Grid and a collection of prosumers, and a total netto of all the energy transactions that has taken place in the mini grid.
 
-### 7.2.2. Prosumer Info
+## 7.2. Prosumer Info
 
 Prosumer Info is a relational SQL database containing information about prosumers and stores information such as an ID for the prosumer, an address and a type. This database ties the transactions to a household and connects it to the overall smart mini grid.
 
-#### 7.2.2.1. Entity-Relation Diagram
+### 7.2.1. Entity-Relation Diagram
 
 - [ ] Add ER diagram
 
-#### 7.2.2.2. DS-Diagram
+### 7.2.2. DS-Diagram
 
 - [ ] Add DS diagram
 
-### 7.2.3. Trader Info
+## 7.3. Trader Info
 
 Trader Info is a noSQL database and as Smart Grid Info is a Cosmos SQL API database, where every document is a transaction between households through the mini grid.
 
