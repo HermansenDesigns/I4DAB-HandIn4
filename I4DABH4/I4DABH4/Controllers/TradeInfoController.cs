@@ -32,31 +32,43 @@ namespace I4DABH4.Controllers
                 return dto;
             });
         }
-
-        // GET: api/TradeInfo/5
-        [HttpGet("{time}", Name = "Get")]
-        public IEnumerable<ProsumerTradeStat> Get(DateTime time)
+        // GET: api/GetAllForProsumer
+        [HttpGet("GetAll/{ProsumerId}")]
+        public IEnumerable<ProsumerTradeStat> Get(long ProsumerId)
         {
-            return _tradesRepo.Get(ProsumerTradeStats.DateToId(time))?.TradeStats;
+            return _tradesRepo.GetAllById(ProsumerId);
         }
-        
+
+        // GET: api/TradeInfo/yy
+        [HttpGet("{yy}")]
+        public IEnumerable<ProsumerTradeStat> Get(string yy)
+        {
+            return _tradesRepo.GetByDate(yy);
+        }
+        // GET: api/TradeInfo/yy/MM
+        [HttpGet("{yy}/{MM}")]
+        public IEnumerable<ProsumerTradeStat> Get(string yy, string MM)
+        {
+            return _tradesRepo.GetByDate(yy+MM);
+        }
+        // GET: api/TradeInfo/yy/MM/dd
+        [HttpGet("{yy}/{MM}/{dd}")]
+        public IEnumerable<ProsumerTradeStat> Get(string yy, string MM, string dd)
+        {
+            return _tradesRepo.GetByDate(yy + MM + dd);
+        }
+        // GET: api/TradeInfo/yy/MM/dd/HH
+        [HttpGet("{yy}/{MM}/{dd}/{HH}")]
+        public IEnumerable<ProsumerTradeStat> Get(string yy, string MM, string dd, string HH)
+        {
+            return _tradesRepo.GetByDate(yy + MM + dd + HH);
+        }
         // POST: api/TradeInfo
         [HttpPost]
         public void Post([FromBody]ProsumerTradeStat model)
         {
             _tradesRepo.Add(model);
         }
-        
-        // PUT: api/TradeInfo/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-        
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+  
     }
 }
