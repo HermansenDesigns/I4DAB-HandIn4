@@ -36,17 +36,19 @@
 - [4. What is Mini Smart Grid?](#4-what-is-mini-smart-grid)
     - [4.1. What is our assignment](#41-what-is-our-assignment)
 - [5. User stories](#5-user-stories)
-- [Domain model](#domain-model)
-    - [5.1. The databases](#51-the-databases)
-        - [5.1.1. Smart Grid Info](#511-smart-grid-info)
-        - [5.1.2. Prosumer Info](#512-prosumer-info)
-            - [Entity-Relation Diagram](#entity-relation-diagram)
-            - [DS-Diagram](#ds-diagram)
-        - [5.1.3. Trader Info](#513-trader-info)
-- [6. Overview of APIs](#6-overview-of-apis)
-    - [6.1. Smart Grid Info](#61-smart-grid-info)
-    - [6.2. Prosumer Info](#62-prosumer-info)
-    - [6.3. Trader Info](#63-trader-info)
+- [6. Domain model](#6-domain-model)
+- [7. Aggregate diagram](#7-aggregate-diagram)
+    - [7.1. Object diagram](#71-object-diagram)
+    - [7.2. The databases](#72-the-databases)
+        - [7.2.1. Smart Grid Info](#721-smart-grid-info)
+        - [7.2.2. Prosumer Info](#722-prosumer-info)
+            - [7.2.2.1. Entity-Relation Diagram](#7221-entity-relation-diagram)
+            - [7.2.2.2. DS-Diagram](#7222-ds-diagram)
+        - [7.2.3. Trader Info](#723-trader-info)
+- [8. Overview of Mini Smart Grid API](#8-overview-of-mini-smart-grid-api)
+    - [8.1. api/Prosumers](#81-api-prosumers)
+    - [8.2. api/TradeInfo](#82-api-tradeinfo)
+- [9. The Application](#9-the-application)
 
 <!-- /TOC -->
 
@@ -70,6 +72,8 @@ Our task is to produce the API that makes it possible to handle all these differ
 
 # 5. User stories
 
+User stories provides an overview over the funktionality an application required, which is from our point of view both the end user, prosumer and the Mini Smart Grid itself.
+
 >1. As a user I should be able to see all the prosumers in the Mini Smart Grid.
 >2. As a user I should be able to see all the prosumers transactions in the Mini Smart Grid.
 >3. As a user I should be able to see the netto of all the prosumers in the Mini Smart Grid.
@@ -77,38 +81,57 @@ Our task is to produce the API that makes it possible to handle all these differ
 >5. As a prosumer I should be able to calculate and pay the exact amount of bitcoins to the Mini Smart Grid
 >6. As a Mini Smart Grid I should be able to calculate the netto of all transactions in a timeframe.
 
-# Domain model
+# 6. Domain model
 
-## 5.1. The databases
+>*_TBA_*
+
+# 7. Aggregate diagram
+
+>*_TBA_*
+
+## 7.1. Object diagram
+
+>*_TBA_*
+
+
+## 7.2. The databases
+
+> Insert Picture of all three databases in polyglot persistance.
 
 The solution contains three databases, which are specified below. This application uses Polyglot persistense, meaning that the domain model is fulfilled with a number of databases, each chosen for their strengths in the specific situation.
 
-### 5.1.1. Smart Grid Info
+### 7.2.1. Smart Grid Info
 
 Smart Grid Info is a noSQL database and more specifically a Cosmos SQL API database. The database contains documents, and every document accounts for a single Smart Mini Grid system. where it contains an ID for the Smart Mini Grid and a collection of prosumers, and a total netto of all the energy transactions that has taken place in the mini grid.
 
-### 5.1.2. Prosumer Info
+### 7.2.2. Prosumer Info
 
 Prosumer Info is a relational SQL database containing information about prosumers and stores information such as an ID for the prosumer, an address and a type. This database ties the transactions to a household and connects it to the overall smart mini grid.
 
-#### Entity-Relation Diagram
+#### 7.2.2.1. Entity-Relation Diagram
 
 >*_TBA_*
 
-#### DS-Diagram
+#### 7.2.2.2. DS-Diagram
 
 >*_TBA_*
 
-### 5.1.3. Trader Info
+### 7.2.3. Trader Info
 
 Trader Info is a noSQL database and as Smart Grid Info is a Cosmos SQL API database, where every document is a transaction between households through the mini grid.
 
-# 6. Overview of APIs
+# 8. Overview of Mini Smart Grid API
 
-APIs provide an easy way for applications to utilize HTTP to connect and use a foreign system. This is especially useful for systems where end system (Client system) may be written in either a different programming language, or the API be public and the endpoint of the application. This is the way the Mini Smart Grid API is implemnted as it provides an easy access to vital data, without having to bother with webpages and presentation.
+APIs provide an easy way for applications to utilize HTTP to connect and use a foreign system. This is especially useful for systems where end system (Client system) may be written in either a different programming language, or the API be public and the endpoint of the application. This is the way the Mini Smart Grid API is implemnted as it provides easy access to vital data, without having to bother with webpages and presentation.
 
-## 6.1. Smart Grid Info
+## 8.1. api/Prosumers
 
-## 6.2. Prosumer Info
+>*_TBA_*
 
-## 6.3. Trader Info
+## 8.2. api/TradeInfo
+
+>*_TBA_*
+
+# 9. The Application
+
+As mentioned before, the application is written in C# with the framework ASP.NET Core 2.0, using the Web API preset. This means that the view of the MVC (Model-View-Controller) framework is a JSON or XML string (we only implemented JSON).The application handles HTTP Requests with methods, such as `POST`, `PUT`, `GET` and `DELETE`. This enables our application to follow CRUD principles (Create, Read, Update and Delete). Because we implemt these methods via HTTP requests, our controller has to stay stateless.
