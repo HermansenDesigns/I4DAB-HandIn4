@@ -15,10 +15,10 @@ namespace I4DABH4.Data.Traderinfo
         readonly string _dbname = "TraderInfo";
         readonly string _collection = "TestCollection";
         private readonly Uri _collectionUri;
-       // private PersonRepository _personRepository;
+        private TradesRepo _tradesRepo;
 
 
-     //   public PersonRepository PersonRepository => this._personRepository ?? new PersonRepository(_client, _collectionUri);
+        public TradesRepo TradesRepo => this._tradesRepo ?? new TradesRepo(_client, _collectionUri);
 
 
         private bool disposed = false;

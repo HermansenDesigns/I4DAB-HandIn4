@@ -7,7 +7,7 @@ namespace I4DABH4.Data.Traderinfo
 {
     public interface IUnitOfWork
     {
-        //PersonRepository PersonRepository { get; }
+        TradesRepo TradesRepo { get; }
 
         void Dispose();
     }

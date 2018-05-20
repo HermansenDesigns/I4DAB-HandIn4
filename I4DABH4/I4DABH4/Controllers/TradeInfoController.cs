@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using I4DABH4.Data.Traderinfo;
+using I4DABH4.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,24 +13,25 @@ namespace I4DABH4.Controllers
     [Route("api/TradeInfo")]
     public class TradeInfoController : Controller
     {
-        // GET: api/TradeInfo
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly TradesRepo _tradesRepo;
+        public TradeInfoController(IUnitOfWork tradingrepo)
         {
-            return new string[] { "value1", "value2" };
+            _tradesRepo = tradingrepo.TradesRepo;
         }
 
         // GET: api/TradeInfo/5
+        /*
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public IEnumerable<ProsumerTradeStatDto> Get(string id)
         {
-            return "value";
+            return _tradesRepo.Get(id).Select(item => new ProsumerTradeStatDto());
         }
-        
+        */
         // POST: api/TradeInfo
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post([FromBody]ProsumerTradeStat model)
         {
+            _tradesRepo.Add(model);
         }
         
         // PUT: api/TradeInfo/5

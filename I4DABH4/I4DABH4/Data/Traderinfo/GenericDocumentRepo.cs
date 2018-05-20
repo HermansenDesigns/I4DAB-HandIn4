@@ -32,32 +32,32 @@ namespace I4DABH4.Data.Traderinfo
 
         }
 
-        public virtual IEnumerable<TEntity> Get(string id)
+        public virtual TEntity Get(string id)
         {
-            return _client.CreateDocumentQuery<IEnumerable<TEntity>>(
+            return _client.CreateDocumentQuery<TEntity>(
                 _collectionUri,
                 "Select * from " + typeof(TEntity).Name + " Where " + typeof(TEntity).Name + ".id='" + id + "'").AsEnumerable()?.FirstOrDefault();
         }
-        public virtual List<TEntity> Get(TEntity entity)
+        public virtual TEntity Get(TEntity entity)
         {
-            return GetDocument(entity) as List<TEntity>;
+            return GetDocument(entity) as TEntity;
         }
 
         private Document GetDocument(TEntity entity)
         {
-            return _client.CreateDocumentQuery(_collectionUri).Where(predicate: c => c.Id == (string)_modelId.GetValue(entity)).AsEnumerable()?.FirstOrDefault();
+            return _client.CreateDocumentQuery(_collectionUri).Where(predicate: c => c.Id == _modelId.GetValue(entity).ToString()).AsEnumerable()?.FirstOrDefault();
         }
 
-        public virtual IEnumerable<List<TEntity>> GetAll()
+        public virtual IEnumerable<TEntity> GetAll()
         {
-            return _client.CreateDocumentQuery<List<TEntity>>(
+            return _client.CreateDocumentQuery<TEntity>(
                 _collectionUri,
                 "Select * from " + typeof(TEntity).Name);
         }
 
-        public virtual IEnumerable<List<TEntity>> Find(Expression<Func<List<TEntity>, bool>> predicate)
+        public virtual IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {
-            return _client.CreateDocumentQuery<List<TEntity>>(_collectionUri)
+            return _client.CreateDocumentQuery<TEntity>(_collectionUri)
                         .Where(predicate).AsEnumerable();
 
         }
@@ -67,7 +67,8 @@ namespace I4DABH4.Data.Traderinfo
             {
                 var item = GetDocument(entity);
                 if (item == null)
-                    _client.CreateDocumentAsync(_collectionUri, new List<TEntity>(){entity}).Wait();
+                    _client.CreateDocumentAsync(_collectionUri, entity).Wait();
+                
             }
             catch (DocumentClientException e)
             {
@@ -111,23 +112,6 @@ namespace I4DABH4.Data.Traderinfo
             try
             {
                 var doc = GetDocument(entity);
-                var response = _client.ReplaceDocumentAsync(doc.SelfLink, entity).Result;
-            }
-            catch (DocumentClientException e)
-            {
-                Console.WriteLine(e);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-        }
-
-        public void Update(IEnumerable<TEntity> entity)
-        {
-            try
-            {
-                var doc = GetDocument(entity.FirstOrDefault());
                 var response = _client.ReplaceDocumentAsync(doc.SelfLink, entity).Result;
             }
             catch (DocumentClientException e)

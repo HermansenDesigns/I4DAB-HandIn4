@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using I4DABH4.Data.Traderinfo;
 using I4DABH4.Repos;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,7 +33,8 @@ namespace I4DABH4
                 Title = "SmartGrid API", Version = "V1.0"
             }); });
 
-            services.AddScoped<IProsumerRepository, ProsumerRepository>(); 
+            services.AddScoped<IProsumerRepository, ProsumerRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
