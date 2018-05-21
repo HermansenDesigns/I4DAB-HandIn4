@@ -147,7 +147,7 @@ Prosumer Info is a relational SQL database containing information about prosumer
 
 In this section there will be ER-diagrams for the solution. ER-Diagrams are used to descripe Relationel Databases. This means that it is only the ProsumerDB that is described with this diagram.
 
-![ER Diagram for Prosumer](Diagrams/ProsumerER.png)
+![ER Diagram for Prosumer](Diagrams/ProsumerER.jpg)
 
 The diagram above shows what the Prosumer depends what the realation is and also how many of the kind that is needed. Each of the boxes on the diagrams presenting an Entity. Each of these entities can hold several attributes. Those attributes is shown in the DS-diagram
 

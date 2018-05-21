@@ -28,10 +28,14 @@ namespace I4DABH4
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info
+            services.AddSwaggerGen(c =>
             {
-                Title = "SmartGrid API", Version = "V1.0"
-            }); });
+                c.SwaggerDoc("v1", new Info
+                {
+                    Title = "SmartGrid API",
+                    Version = "V1.0"
+                });
+            });
 
             services.AddScoped<IProsumerRepository, ProsumerRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -40,7 +44,7 @@ namespace I4DABH4
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -50,7 +54,7 @@ namespace I4DABH4
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
-            
+
             app.UseMvc();
         }
     }
