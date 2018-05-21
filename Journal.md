@@ -1,6 +1,6 @@
 <div style="text-align: center;">
 
-# 1. I4DAB-HandIn4 
+# 1. I4DAB-HandIn4
 
 ## 1.1. Group 8
 
@@ -10,18 +10,16 @@
 
 <!-- /Spacing -->
 
-
 ## 1.2. Participants
 
 - [ ] Update participants
 
-
-| Students              | AUID     | Student number |
-| --------------------- | -------- | -------------- |
-| Jakob                 | **TBA**  | **TBA**        |
-| Karsten Winther Johansen| au516160 | 201400298        |
-| Kasper Juul Hermansen | au557919 | 201607110      |
-| Martin                | **TBA**  | **TBA**        |
+| Students                 | AUID     | Student number |
+| ------------------------ | -------- | -------------- |
+| Jakob                    | **TBA**  | **TBA**        |
+| Karsten Winther Johansen | au516160 | 201400298      |
+| Kasper Juul Hermansen    | au557919 | 201607110      |
+| Martin                   | **TBA**  | **TBA**        |
 
 </div>
 
@@ -97,14 +95,15 @@ User stories provides an overview over the funktionality an application required
 # 6. Domain analysis
 
 ## 6.1. Domain model
+
 The following domain model is drawn to make an easy overview of the system domains. On this drawning it is possible to see who is "communicating" with who, and what they are exchanging.
+
 ![Domain Model](Diagrams/DomainModel.jpg)
 
 At the Domain model it is shown, that the Prosumer is both producing and consuming electricity to/from the Minigrid. The Minigrid is in our system the "auctioneer", that buys and sells electricity.
 
-* If the demand for power is bigger than the produced amount, the Grid buys from the powerplant
-
-* If the demand is smaller than the produces amount, the grid will sell the excess amount of power.
+- If the demand for power is bigger than the produced amount, the Grid buys from the powerplant
+- If the demand is smaller than the produces amount, the grid will sell the excess amount of power.
 
 If one of the prosumers in the grid not produces any electricity, one of the others may do, which means that there is a oputunity to buy and sell to each other in the MiniGrid. When the Trade is done, the tradeinfo is written to a DataBase, that hold the information like who bought from who, and also how big amount of power there was traded.
 
@@ -113,13 +112,16 @@ The SmartGrid is as mentioned before a kind of autioneer, that through the Prosu
 Last but not least there is written to the SmartGridInfoDB. The message that is written has the content of the netvalue of the total Grid. This is the value that is delivered to the Blockchain as the settlement basis. The blockchain is not implemented in this sollution but it is this instance, that would havde settled the financial Statements with both the Powerplant and the prosumers.
 
 ## 6.2. Aggregate diagram
+
 In this section there will be show an aggregate model. This is a model that shows a treestructure for three DataBases. The diagram also shows what the content of each aggregate is.
+
 ![Aggregate Model](Diagrams/AggregateDiagram.jpg)
+
 As show on the picture above there is three databases. These three DB's have different content but are still connected throug the ID eg. the Prusomer ID's in the Grid DB.
 It is important to notice that the box named MiniGrid is not aggregate but instead the "thing" that is connecting the three DB's
 
-
 ## 6.3. Object diagram
+
 The following diagram is called an objectDiagram. This shows an example of actual values that the attributes can be equal to.
 
 ![Object Model](Diagrams/ObjectDiagram.jpg)
@@ -295,6 +297,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
     }
 }
 ```
+
 As seen above, the context provides easy access to the database, and the context itself can actually be considered a Repository itself. However, it is still legal, for us to implement a Repository on top of the context as we need a way to provide utility to the context itself, such as validation, error handling and relational includes, which isn't relevant for the Mini Smart Grid application, but is very useful in other context.
 
 > `GenericDocumentRepo` is also important, but as it is quite a bit longer, we'll omit it from the rapport, however, it can be viewed in the solution.
