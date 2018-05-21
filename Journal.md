@@ -99,27 +99,28 @@ User stories provides an overview over the funktionality an application required
 ## 6.1. Domain model
 The following domain model is drawn to make an easy overview of the system domains. On this drawning it is possible to see who is "communicating" with who, and what they are exchanging.
 ![Domain Model](Diagrams/DomainModel.jpg)
-At the Domain model it is shon, that the Prosumer is both producing and consuming electricity from the Minigrid. The Minigrid is in our system the auctioneer, that buys and sell electricity.
+
+At the Domain model it is shown, that the Prosumer is both producing and consuming electricity to/from the Minigrid. The Minigrid is in our system the "auctioneer", that buys and sells electricity.
 
 * If the demand for power is bigger than the produced amount, the Grid buys from the powerplant
 
 * If the demand is smaller than the produces amount, the grid will sell the excess amount of power.
 
-If one of the prosumers in the grid not produces any electricity, one of the others may do. this mean that there is a oputunity to buy and sell to each other in the MiniGrid. When this Trade is done, the tradinfo is written to a DataBase, that hold information like who bought from who, and also how big amount of power there was traded.
+If one of the prosumers in the grid not produces any electricity, one of the others may do, which means that there is a oputunity to buy and sell to each other in the MiniGrid. When the Trade is done, the tradeinfo is written to a DataBase, that hold the information like who bought from who, and also how big amount of power there was traded.
 
-The SmartGrid is as said before a kind of autioneer, that throug the ProsumerDB knows how many and who is incuded in the Grid. It is also this DB, that hold the information about the actual netVaule og sold and bougt power.
+The SmartGrid is as mentioned before a kind of autioneer, that through the ProsumerDB knows how many and who is incuded in the Grid. It is also this DB, that holds the information about the actual netVaule or sold and bougt power.
 
-last but not least there is written to the SmartGridInfoDB. The message that is written has the content of the netvalue of the total Grid. This is the value that is delivered to the Blockchain as the settlement basis. the blockchain is not implemented in this sollution but it is this instance, that would havde settled the financial Statements with both the Powerplant and the prosumers.
+Last but not least there is written to the SmartGridInfoDB. The message that is written has the content of the netvalue of the total Grid. This is the value that is delivered to the Blockchain as the settlement basis. The blockchain is not implemented in this sollution but it is this instance, that would havde settled the financial Statements with both the Powerplant and the prosumers.
 
 ## 6.2. Aggregate diagram
-in this section there will be show a aggregate model. This is a model that shows a treestructure for three DataBases. this also show what the content of each aggregate is.
+In this section there will be show an aggregate model. This is a model that shows a treestructure for three DataBases. The diagram also shows what the content of each aggregate is.
 ![Aggregate Model](Diagrams/AggregateDiagram.jpg)
-As show on the picture above there is three databases. these three DB's have different content but are still connected throug the ID eg. the Prusomer ID's in the Grid DB.
-it is important to notice that the box named MiniGrid is not aggregate but instead the "thing" that is connecting the three DB's
+As show on the picture above there is three databases. These three DB's have different content but are still connected throug the ID eg. the Prusomer ID's in the Grid DB.
+It is important to notice that the box named MiniGrid is not aggregate but instead the "thing" that is connecting the three DB's
 
 
 ## 6.3. Object diagram
-the following diagram is called an objectDiagram. This shows an example of actual values that the attributes can be equal to.
+The following diagram is called an objectDiagram. This shows an example of actual values that the attributes can be equal to.
 
 ![Object Model](Diagrams/ObjectDiagram.jpg)
 
