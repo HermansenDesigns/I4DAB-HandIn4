@@ -19,7 +19,7 @@
 | Students              | AUID     | Student number |
 | --------------------- | -------- | -------------- |
 | Jakob                 | **TBA**  | **TBA**        |
-| Karsten               | **TBA**  | **TBA**        |
+| Karsten Winther Johansen| au516160 | 201400298        |
 | Kasper Juul Hermansen | au557919 | 201607110      |
 | Martin                | **TBA**  | **TBA**        |
 
@@ -50,9 +50,9 @@
         - [7.2.2. DS-Diagram](#722-ds-diagram)
     - [7.3. Trader Info](#73-trader-info)
 - [8. Overview of Mini Smart Grid API](#8-overview-of-mini-smart-grid-api)
-    - [8.1. api/Prosumers](#81-apiprosumers)
-    - [8.2. api/TradeInfo](#82-apitradeinfo)
-    - [8.3. api/SmartGridInfo](#83-apismartgridinfo)
+    - [8.1. api/Prosumers](#81-api-prosumers)
+    - [8.2. api/TradeInfo](#82-api-tradeinfo)
+    - [8.3. api/SmartGridInfo](#83-api-smartgridinfo)
 - [9. The Application](#9-the-application)
     - [9.1. Unit Of Work](#91-unit-of-work)
     - [9.2. Repositories](#92-repositories)
@@ -97,16 +97,34 @@ User stories provides an overview over the funktionality an application required
 # 6. Domain analysis
 
 ## 6.1. Domain model
+The following domain model is drawn to make an easy overview of the system domains. On this drawning it is possible to see who is "communicating" with who, and what they are exchanging.
+![Domain Model](Diagrams/DomainModel.jpg)
+At the Domain model it is shon, that the Prosumer is both producing and consuming electricity from the Minigrid. The Minigrid is in our system the auctioneer, that buys and sell electricity.
 
-- [ ] Add Domainmodel diagram
+* If the demand for power is bigger than the produced amount, the Grid buys from the powerplant
+
+* If the demand is smaller than the produces amount, the grid will sell the excess amount of power.
+
+If one of the prosumers in the grid not produces any electricity, one of the others may do. this mean that there is a oputunity to buy and sell to each other in the MiniGrid. When this Trade is done, the tradinfo is written to a DataBase, that hold information like who bought from who, and also how big amount of power there was traded.
+
+The SmartGrid is as said before a kind of autioneer, that throug the ProsumerDB knows how many and who is incuded in the Grid. It is also this DB, that hold the information about the actual netVaule og sold and bougt power.
+
+last but not least there is written to the SmartGridInfoDB. The message that is written has the content of the netvalue of the total Grid. This is the value that is delivered to the Blockchain as the settlement basis. the blockchain is not implemented in this sollution but it is this instance, that would havde settled the financial Statements with both the Powerplant and the prosumers.
 
 ## 6.2. Aggregate diagram
+in this section there will be show a aggregate model. This is a model that shows a treestructure for three DataBases. this also show what the content of each aggregate is.
+![Aggregate Model](Diagrams/AggregateDiagram.jpg)
+As show on the picture above there is three databases. these three DB's have different content but are still connected throug the ID eg. the Prusomer ID's in the Grid DB.
+it is important to notice that the box named MiniGrid is not aggregate but instead the "thing" that is connecting the three DB's
 
-- [ ] Add Aggregate diagram
 
 ## 6.3. Object diagram
+the following diagram is called an objectDiagram. This shows an example of actual values that the attributes can be equal to.
 
-- [ ] Add Object diagram
+![Object Model](Diagrams/ObjectDiagram.jpg)
+
+In the example above there is a prosumer with ID 007 that buys 20 kWh from the MiniGrid. These 20 kWh are produced by one of the other Prosumers in the  grid. that the power comes from another inside the grid is shown by teh fact that the Gross In value is zerro at teh Grid object.
+also in this example the Minigrid box is ddrawn to show, that this is the "thing" that is holding the system together.
 
 # 7. The databases
 
