@@ -9,9 +9,9 @@ using Microsoft.Azure.Documents.Client;
 
 namespace I4DABH4.Data.Traderinfo
 {
-    public class TradesRepo : GenericDocumentRepo<ProsumerTradeStats>, ITradesRepo
+    public class TradesCollectionRepo : CollectionRepo<ProsumerTradeStats>, ITradesRepo
     {
-        public TradesRepo(DocumentClient client, Uri collectionUri) : base(client, collectionUri)
+        public TradesCollectionRepo(DocumentClient client, Uri collectionUri) : base(client, collectionUri)
         {
         }
 

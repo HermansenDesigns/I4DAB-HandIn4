@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Data\Smartgridinfo\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

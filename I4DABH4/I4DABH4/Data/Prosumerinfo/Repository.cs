@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using I4DABH4.Repos;
 using Microsoft.EntityFrameworkCore;
 
-namespace I4DABH4.Repos
+namespace I4DABH4.Data.Prosumerinfo
 {
-    public class GenericRepository<T> :
-        IGenericRepository<T> where T : class
+    public class Repository<T> :
+        IRepository<T> where T : class
     {
         private readonly DbContext context;
         private DbSet<T> entities;
-        public GenericRepository(DbContext context)
+        public Repository(DbContext context)
         {
             this.context = context;
             entities = context.Set<T>();

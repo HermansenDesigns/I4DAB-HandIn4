@@ -14,8 +14,8 @@ namespace I4DABH4.Controllers
     [Route("api/TradeInfo")]
     public class TradeInfoController : Controller
     {
-        private readonly TradesRepo _tradesRepo;
-        public TradeInfoController(IUnitOfWork tradingrepo)
+        private readonly TradesCollectionRepo _tradesRepo;
+        public TradeInfoController(ICollections tradingrepo)
         {
             _tradesRepo = tradingrepo.TradesRepo;
         }

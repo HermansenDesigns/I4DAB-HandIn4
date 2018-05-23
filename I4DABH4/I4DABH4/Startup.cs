@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using I4DABH4.Data.Prosumerinfo;
+using I4DABH4.Data.Prosumerinfo.Interfaces;
 using I4DABH4.Data.Traderinfo;
 using I4DABH4.Repos;
 using Microsoft.AspNetCore.Builder;
@@ -37,6 +39,7 @@ namespace I4DABH4
                 });
             });
             
+            services.AddScoped<ICollections, Collections>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 

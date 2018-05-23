@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using I4DABH4.Data.Prosumerinfo.Interfaces;
 using I4DABH4.Data.Traderinfo;
 using I4DABH4.Dto;
 using Microsoft.AspNetCore.Http;

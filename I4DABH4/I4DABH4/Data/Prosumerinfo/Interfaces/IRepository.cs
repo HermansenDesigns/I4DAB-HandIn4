@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace I4DABH4.Repos
 {
 
-    public interface IGenericRepository<T> where T : class 
+    public interface IRepository<T> where T : class 
     {
         IEnumerable<T> GetAll();
         T Get(long id);

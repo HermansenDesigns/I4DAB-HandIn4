@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using I4DABH4.Repos;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
-namespace I4DABH4.Data.Traderinfo
+namespace I4DABH4.Data.Prosumerinfo.Interfaces
 {
     public interface IUnitOfWork
     {
-        TradesRepo TradesRepo { get; }
-        GridRepo GridRepo { get; }
-
         ProsumerRepository ProsumerRepo { get; }
-        void Dispose();
         void SaveChanges();
     }
 }

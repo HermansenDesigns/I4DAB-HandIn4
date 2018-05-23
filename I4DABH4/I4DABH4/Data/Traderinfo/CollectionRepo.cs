@@ -12,12 +12,12 @@ using Remotion.Linq.Clauses;
 
 namespace I4DABH4.Data.Traderinfo
 {
-    public class GenericDocumentRepo<TEntity> : IGenericDocumentRepo<TEntity> where TEntity : class
+    public class CollectionRepo<TEntity> : ICollectionRepo<TEntity> where TEntity : class
     {
         private readonly DocumentClient _client;
         private readonly Uri _collectionUri;
         private readonly PropertyInfo _modelId;
-        public GenericDocumentRepo(DocumentClient client, Uri collectionUri)
+        public CollectionRepo(DocumentClient client, Uri collectionUri)
         {
             try
             {

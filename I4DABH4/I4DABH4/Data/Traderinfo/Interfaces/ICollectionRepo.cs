@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace I4DABH4.Data.Traderinfo
 {
-    public interface IGenericDocumentRepo<TEntity> where TEntity : class
+    public interface ICollectionRepo<TEntity> where TEntity : class
     {
         TEntity Get(string id);
         TEntity Get(TEntity entity);
