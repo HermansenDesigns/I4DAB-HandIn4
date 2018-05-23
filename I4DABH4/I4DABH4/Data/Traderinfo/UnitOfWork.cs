@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using I4DABH4.Models;
+using I4DABH4.Repos;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 
@@ -16,11 +18,11 @@ namespace I4DABH4.Data.Traderinfo
         readonly string _collection = "TestCollection";
         private readonly Uri _collectionUri;
         private TradesRepo _tradesRepo;
+        private ProsumerRepository _prosumerRepo;
 
 
         public TradesRepo TradesRepo => this._tradesRepo ?? new TradesRepo(_client, _collectionUri);
-
-
+        public ProsumerRepository ProsumerRepo => this._prosumerRepo ?? new ProsumerRepository(new ProsumerContext()); 
         private bool disposed = false;
 
         public UnitOfWork()
@@ -58,6 +60,11 @@ namespace I4DABH4.Data.Traderinfo
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        public void SaveChanges()
+        {
+            _prosumerRepo.SaveChanges();
         }
     }
 }

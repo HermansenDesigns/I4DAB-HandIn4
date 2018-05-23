@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using I4DABH4.Data.Traderinfo;
+using I4DABH4.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,31 +15,29 @@ namespace I4DABH4.Controllers
     [Route("api/Prosumers")]
     public class ProsumersController : Controller
     {
-        private readonly ProsumerContext _context;
+        private IUnitOfWork _uow;
 
-        public ProsumersController(ProsumerContext context)
+        public ProsumersController(IUnitOfWork uow)
         {
-            _context = context;
+            _uow = uow;
         }
 
         // GET: api/Prosumers
         [HttpGet]
         public IEnumerable<Prosumer> GetProsumers()
         {
-            return _context.Prosumers;
+            return _uow.ProsumerRepo.GetAll();
         }
 
         // GET: api/Prosumers/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetProsumer([FromRoute] string id)
+        public IActionResult GetProsumer([FromRoute] long id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            var prosumer = await _context.Prosumers.SingleOrDefaultAsync(m => m.Address == id);
-
+            var prosumer = _uow.ProsumerRepo.Get(id);
             if (prosumer == null)
             {
                 return NotFound();
@@ -48,23 +48,22 @@ namespace I4DABH4.Controllers
 
         // PUT: api/Prosumers/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProsumer([FromRoute] string id, [FromBody] Prosumer prosumer)
+        public async Task<IActionResult> PutProsumer([FromRoute] long id, [FromBody] Prosumer prosumer)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != prosumer.Address)
+            if (id != prosumer.ProsumerId)
             {
                 return BadRequest();
             }
-
-            _context.Entry(prosumer).State = EntityState.Modified;
+            _uow.ProsumerRepo.Update(prosumer);
 
             try
             {
-                await _context.SaveChangesAsync();
+                _uow.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -83,43 +82,49 @@ namespace I4DABH4.Controllers
 
         // POST: api/Prosumers
         [HttpPost]
-        public async Task<IActionResult> PostProsumer([FromBody] Prosumer prosumer)
+        public IActionResult PostProsumer([FromBody] ProsumerDTO prosumer)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Prosumers.Add(prosumer);
-            await _context.SaveChangesAsync();
+            var toadd = new Prosumer()
+            {
+                Type = prosumer.Type,
+                NetValue = prosumer.NetValue,
+                Address = prosumer.Address
+            };
+            _uow.ProsumerRepo.Insert(toadd);
+            _uow.SaveChanges();
 
-            return CreatedAtAction("GetProsumer", new { id = prosumer.Address }, prosumer);
+            return CreatedAtAction("GetProsumer", new { id = toadd.ProsumerId}, toadd);
         }
 
         // DELETE: api/Prosumers/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProsumer([FromRoute] string id)
+        public IActionResult DeleteProsumer([FromRoute] long id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var prosumer = await _context.Prosumers.SingleOrDefaultAsync(m => m.Address == id);
+            var prosumer = _uow.ProsumerRepo.Get(id);
             if (prosumer == null)
             {
                 return NotFound();
             }
 
-            _context.Prosumers.Remove(prosumer);
-            await _context.SaveChangesAsync();
+            _uow.ProsumerRepo.Delete(prosumer);
+            _uow.SaveChanges();
 
             return Ok(prosumer);
         }
 
-        private bool ProsumerExists(string id)
+        private bool ProsumerExists(long id)
         {
-            return _context.Prosumers.Any(e => e.Address == id);
+            return _uow.ProsumerRepo.Get(id) != null;
         }
     }
 }

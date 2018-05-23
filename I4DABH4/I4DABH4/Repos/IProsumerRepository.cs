@@ -8,6 +8,7 @@ namespace I4DABH4.Repos
 {
     public interface IProsumerRepository : IGenericRepository<Prosumer>
     {
-        void SaveChanges(); 
+        void SaveChanges();
+        
     }
 }
