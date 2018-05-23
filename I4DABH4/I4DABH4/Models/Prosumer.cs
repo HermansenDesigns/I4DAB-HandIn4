@@ -13,6 +13,6 @@ namespace I4DABH4.Models
         public long ProsumerId { get; set; }
         public string Address { get; set; }
         public string Type { get; set; }
-
+        public int NetValue { get; set; }
     }
 }

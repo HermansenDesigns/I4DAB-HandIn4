@@ -36,8 +36,7 @@ namespace I4DABH4
                     Version = "V1.0"
                 });
             });
-
-            services.AddScoped<IProsumerRepository, ProsumerRepository>();
+            
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
