@@ -33,7 +33,7 @@ namespace I4DABH4.Controllers
             });
         }
         // GET: api/GetAllForProsumer
-        [HttpGet("GetAll/{ProsumerId}")]
+        [HttpGet("GetAllFor/{ProsumerId}")]
         public IEnumerable<ProsumerTradeStat> Get(long ProsumerId)
         {
             return _tradesRepo.GetAllById(ProsumerId);
@@ -69,6 +69,5 @@ namespace I4DABH4.Controllers
         {
             _tradesRepo.Add(model);
         }
-  
     }
 }

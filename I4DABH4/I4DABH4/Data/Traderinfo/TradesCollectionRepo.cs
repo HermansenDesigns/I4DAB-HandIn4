@@ -14,6 +14,10 @@ namespace I4DABH4.Data.Traderinfo
         public TradesCollectionRepo(DocumentClient client, Uri collectionUri) : base(client, collectionUri)
         {
         }
+        public override void Remove(ProsumerTradeStats entity)
+        {
+            //Man må ikke slette fra ledgeren
+        }
 
         public IEnumerable<ProsumerTradeStat> GetAllById(long prosumerId)
         {
@@ -32,7 +36,7 @@ namespace I4DABH4.Data.Traderinfo
         {
             var query = base.Query().Select(c => c.TradeStats)?.AsEnumerable()?.LastOrDefault();
 
-            return query.FindLast(item => item.ProsumerId == prosumerId);
+            return query?.FindLast(item => item.ProsumerId == prosumerId);
         }
 
 

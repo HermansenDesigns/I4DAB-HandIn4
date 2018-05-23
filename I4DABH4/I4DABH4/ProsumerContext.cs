@@ -7,6 +7,7 @@ namespace I4DABH4.Models
     public partial class ProsumerContext : DbContext
     {
         public virtual DbSet<Prosumer> Prosumers { get; set; }
+        public virtual DbSet<GridSettings> GridSettings { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
