@@ -12,7 +12,7 @@ namespace I4DABH4.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Prosumer;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer(@"Data Source=10.29.0.29;Initial Catalog=F18I4DABH4Gr8;Integrated Security=False;User ID=F18I4DABH4Gr8;Password=F18I4DABH4Gr8;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             }
         }
 
