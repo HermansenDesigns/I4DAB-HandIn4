@@ -11,7 +11,7 @@ namespace I4DABH4.Models
         [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
         public int NetBalance { get; set; }
-        public List<int> ProsumerIds { get; set; }
+        public List<long> ProsumerIds { get; set; }
 
     }
 }

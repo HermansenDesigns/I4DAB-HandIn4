@@ -12,8 +12,11 @@ namespace I4DABH4.Data.Traderinfo
     public class UnitOfWork : IDisposable, IUnitOfWork
     {
         private readonly DocumentClient _client;
-        readonly string _host = "https://f18i4dab.documents.azure.com:443/";
-        readonly string _key = "vmbfFVnIqKYcdYCVRqHXDpkqh471dqeELczO4rbVKoYpI5NUJ4D34DegxTFTS4FhNiCw6B477WVqhjqNABSdow==";
+        //readonly string _host = "https://f18i4dab.documents.azure.com:443/";
+        //readonly string _key = "vmbfFVnIqKYcdYCVRqHXDpkqh471dqeELczO4rbVKoYpI5NUJ4D34DegxTFTS4FhNiCw6B477WVqhjqNABSdow==";
+        //readonly string _dbname = "F18I4DABH4Gr8";
+        readonly string _host = "https://localhost:8081";
+        readonly string _key = "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==";
         readonly string _dbname = "F18I4DABH4Gr8";
         readonly string _collection = "ProsumerCollection";
         private readonly Uri _collectionUri;
