@@ -19,11 +19,15 @@ namespace I4DABH4.Data.Traderinfo
         private readonly Uri _collectionUri;
         private TradesRepo _tradesRepo;
         private ProsumerRepository _prosumerRepo;
+        private GridRepo _gridRepo;
 
         readonly string _collectionGrid = "GridCollection";
 
         public TradesRepo TradesRepo => this._tradesRepo ?? new TradesRepo(_client, _collectionUri);
         public ProsumerRepository ProsumerRepo => this._prosumerRepo ?? new ProsumerRepository(new ProsumerContext()); 
+        public GridRepo GridRepo => this._gridRepo ?? new GridRepo(_client, _collectionUri);
+
+
         private bool disposed = false;
 
         public UnitOfWork()

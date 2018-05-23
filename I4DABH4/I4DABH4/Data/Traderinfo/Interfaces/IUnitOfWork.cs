@@ -9,6 +9,8 @@ namespace I4DABH4.Data.Traderinfo
     public interface IUnitOfWork
     {
         TradesRepo TradesRepo { get; }
+        GridRepo GridRepo { get; }
+
         ProsumerRepository ProsumerRepo { get; }
         void Dispose();
         void SaveChanges();
