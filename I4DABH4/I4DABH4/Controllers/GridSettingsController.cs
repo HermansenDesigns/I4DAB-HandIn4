@@ -23,10 +23,11 @@ namespace I4DABH4.Controllers
 
         // GET: api/GridSettings
         [HttpGet]
-        public GridSettings GetGridSettings()
+        public GridSettings GetGridSetting()
         {
-            return _uow.GridRepo.Get(0);
+            return _uow.GridRepo.GetAll().FirstOrDefault();
         }
+
         // POST: api/GridSettings
         [HttpPost]
         public IActionResult PostGridSettings([FromBody] GridSettings gridSettings)

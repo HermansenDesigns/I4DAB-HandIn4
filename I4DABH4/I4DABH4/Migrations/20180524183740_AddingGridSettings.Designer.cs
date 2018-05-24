@@ -11,9 +11,10 @@ using System;
 namespace I4DABH4.Migrations
 {
     [DbContext(typeof(ProsumerContext))]
-    partial class ProsumerContextModelSnapshot : ModelSnapshot
+    [Migration("20180524183740_AddingGridSettings")]
+    partial class AddingGridSettings
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
