@@ -28,7 +28,7 @@ namespace I4DABH4.Data.Prosumerinfo
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                return;
             }
             entities.Add(entity);
             context.SaveChanges();
@@ -37,13 +37,11 @@ namespace I4DABH4.Data.Prosumerinfo
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                return;
             }
+            entities.Update(entity);
+            
 
-            var t = context.Set<T>().SingleOrDefault(o => o == entity);
-            if (t != null)
-                context.Entry(t).CurrentValues.SetValues(t);
-            context.SaveChanges();
         }
         public void Delete(T entity)
         {
