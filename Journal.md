@@ -111,7 +111,7 @@ User stories provides an overview over the funktionality an application required
 
 The following domain model is drawn to make an easy overview of the system domains. On this drawning it is possible to see who is "communicating" with who, and what they are exchanging.
 
-![Domain Model](Diagrams/DomainModel.jpg)
+![Domain Model](Diagrams/DomainModel.png)
 
 At the Domain model it is shown, that the Prosumer is both producing and consuming electricity to/from the Minigrid. The Minigrid is in our system the "auctioneer", that buys and sells electricity.
 
@@ -128,7 +128,7 @@ Last but not least there is written to the SmartGridInfoDB. The message that is 
 
 In this section there will be show an aggregate model. This is a model that shows a treestructure for three DataBases. The diagram also shows what the content of each aggregate is.
 
-![Aggregate Model](Diagrams/AggregateDiagram.jpg)
+![Aggregate Model](Diagrams/AggregateDiagram.png)
 
 As show on the picture above there is three databases. These three DB's have different content but are still connected throug the ID eg. the Prusomer ID's in the Grid DB.
 It is important to notice that the box named MiniGrid is not aggregate but instead the "thing" that is connecting the three DB's
@@ -137,7 +137,7 @@ It is important to notice that the box named MiniGrid is not aggregate but inste
 
 The following diagram is called an objectDiagram. This shows an example of actual values that the attributes can be equal to.
 
-![Object Model](Diagrams/ObjectDiagram.jpg)
+![Object Model](Diagrams/ObjectDiagram.png)
 
 In the example above there is a prosumer with ID 007 that buys 20 kWh from the MiniGrid. These 20 kWh are produced by one of the other Prosumers in the  grid. that the power comes from another inside the grid is shown by teh fact that the Gross In value is zerro at teh Grid object.
 also in this example the Minigrid box is ddrawn to show, that this is the "thing" that is holding the system together.
@@ -160,7 +160,7 @@ Prosumer Info is a relational SQL database containing information about prosumer
 
 In this section there will be ER-diagrams for the solution. ER-Diagrams are used to descripe Relationel Databases. This means that it is only the ProsumerDB that is described with this diagram.
 
-![ER Diagram for Prosumer](Diagrams/ProsumerER.jpg)
+![ER Diagram for Prosumer](Diagrams/ER.png)
 
 The diagram above shows what the Prosumer depends what the realation is and also how many of the kind that is needed. Each of the boxes on the diagrams presenting an Entity. Each of these entities can hold several attributes. Those attributes is shown in the DS-diagram
 
@@ -168,7 +168,7 @@ The diagram above shows what the Prosumer depends what the realation is and also
 
 The DS.diagram shows which attributes each entity have. This is shown in the example below.
 
-![ER Diagram for Prosumer](Diagrams/ProsumerDS.jpg)
+![ER Diagram for Prosumer](Diagrams/DSD.png)
 
 At the diagram above it is shown wich attributes each entity hold. commonly for all af the entity is that they have an ID wich is the number that binds together the Database.
 
