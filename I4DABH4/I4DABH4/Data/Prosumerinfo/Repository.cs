@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using I4DABH4.Repos;
 using Microsoft.EntityFrameworkCore;
-
+//Inspiration from: https://social.technet.microsoft.com/wiki/contents/articles/36510.asp-net-core-generic-repository-pattern.aspx
 namespace I4DABH4.Data.Prosumerinfo
 {
     public class Repository<T> :
