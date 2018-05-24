@@ -19,7 +19,7 @@
 | Jakob                    | **TBA**  | **TBA**        |
 | Karsten Winther Johansen | au516160 | 201400298      |
 | Kasper Juul Hermansen    | au557919 | 201607110      |
-| Martin                   | **TBA**  | **TBA**        |
+| Martin Lynge Dalgaard    | au339657 | 20112806       |
 
 </div>
 
@@ -173,7 +173,14 @@ APIs provide an easy way for applications to utilize HTTP to connect and use a f
 
 ## 8.2. api/TradeInfo
 
-- [ ] Add API - tradeInfo
+'STAT': measurement from smartmeter, with information about how much a prosumer, produceses / consumes.
+- GET '/' returns the smartgrids net balance (produced/consumed), on an hourly basis.
+- GET '/GetAllFor/{id}' returns all STAT for the user specified by {id}.
+- GET '/{yy}' returns all STAT in the year specified by {yy}.
+- GET '/{yy}/{MM}' returns all STAT in the month specified by {MM} of the year {yy}.
+- GET '/{yy}/{MM}/{dd}' returns all STAT in the day specified by {dd} of the month {MM} of the year {yy}.
+- GET '/{yy}/{MM}/{dd}/{HH}' returns all STAT in the hour specified by {HH} of the day {dd} of the month {MM} of the year {yy}.
+- POST '/' Adds a STAT.
 
 ## 8.3. api/SmartGridInfo
 
