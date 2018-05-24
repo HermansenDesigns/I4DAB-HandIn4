@@ -12,11 +12,9 @@
 
 ## 1.2. Participants
 
-- [ ] Update participants
-
 | Students                 | AUID     | Student number |
 | ------------------------ | -------- | -------------- |
-| Jakob                    | **TBA**  | **TBA**        |
+| Jakob Bonde Nielsen      | au567214 | 201607589      |
 | Karsten Winther Johansen | au516160 | 201400298      |
 | Kasper Juul Hermansen    | au557919 | 201607110      |
 | Martin Lynge Dalgaard    | au339657 | 20112806       |
@@ -174,6 +172,7 @@ APIs provide an easy way for applications to utilize HTTP to connect and use a f
 ## 8.2. api/TradeInfo
 
 'STAT': measurement from smartmeter, with information about how much a prosumer, produceses / consumes.
+
 - GET '/' returns the smartgrids net balance (produced/consumed), on an hourly basis.
 - GET '/GetAllFor/{id}' returns all STAT for the user specified by {id}.
 - GET '/{yy}' returns all STAT in the year specified by {yy}.
@@ -183,7 +182,6 @@ APIs provide an easy way for applications to utilize HTTP to connect and use a f
 - POST '/' Adds a STAT.
 
 ## 8.3. api/SmartGridInfo
-
 - [ ] Add API - SmartGridInfo
 
 # 9. The Application
@@ -263,44 +261,46 @@ To limit the amount of work required, Generic Repositories are implemented, thes
 Because we use different types of databases, that are vastly different we've implemented a `GenericDocumentRepo` and a `GenericRepository`. These are vastly different in implementation, but the idea is the same, expose CRUD methods in different formats and encapsulate collections. These methods, doesn't contain any way of persist the data. This is instead done in the Unit of Work pattern. 
 
 ```csharp
-public class GenericRepository<T> : IGenericRepository<T> where T : class
+public class Repository<T> : IRepository<T> where T : class
 {
     private readonly DbContext context;
     private DbSet<T> entities;
-    public GenericRepository(DbContext context)
+    
+    public Repository(DbContext context)
     {
         this.context = context;
         entities = context.Set<T>();
     }
+    
     public IEnumerable<T> GetAll()
     {
         return entities.AsEnumerable();
     }
+
     public T Get(long id)
     {
         return entities.Find(id);
     }
+
     public void Insert(T entity)
     {
         if (entity == null)
         {
-            throw new ArgumentNullException("entity");
+            return;
         }
         entities.Add(entity);
         context.SaveChanges();
     }
+
     public void Update(T entity)
     {
         if (entity == null)
         {
-            throw new ArgumentNullException("entity");
+            return;
         }
-
-        var t = context.Set<T>().SingleOrDefault(o => o == entity);
-        if (t != null)
-            context.Entry(t).CurrentValues.SetValues(t);
-        context.SaveChanges();
+        entities.Update(entity);
     }
+
     public void Delete(T entity)
     {
         if (entity == null)
